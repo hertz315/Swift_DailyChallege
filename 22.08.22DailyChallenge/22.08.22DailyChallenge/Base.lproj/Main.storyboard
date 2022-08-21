@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Ad7-cG-lIS">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="D66-nu-aeK">
+            <objects>
+                <navigationController id="Ad7-cG-lIS" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="atd-Ot-8Xs">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <navigationBarAppearance key="scrollEdgeAppearance"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="8fo-kT-J9A" kind="relationship" relationship="rootViewController" id="SoB-Lx-9NF"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EI2-p4-L72" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1670" y="75"/>
+        </scene>
+        <!--연결방식을 선택하세요-->
+        <scene sceneID="Tpe-hQ-9AE">
+            <objects>
+                <viewController id="8fo-kT-J9A" customClass="MainViewController" customModule="_2_08_22DailyChallenge" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="a0v-aY-s0S">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="92" translatesAutoresizingMaskIntoConstraints="NO" id="fHI-9q-g8n">
+                                <rect key="frame" x="174.5" y="371" width="65" height="154"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Psz-iJ-Gft">
+                                        <rect key="frame" x="0.0" y="0.0" width="65" height="31"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Segue"/>
+                                        <connections>
+                                            <segue destination="q99-Gi-Gcx" kind="show" id="0dA-CQ-PDG"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XrS-HX-BRj">
+                                        <rect key="frame" x="0.0" y="123" width="65" height="31"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="code"/>
+                                        <connections>
+                                            <action selector="codeButtonTapped:" destination="8fo-kT-J9A" eventType="touchUpInside" id="bJX-93-jEa"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="tv7-tA-zMo"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="fHI-9q-g8n" firstAttribute="centerY" secondItem="a0v-aY-s0S" secondAttribute="centerY" id="8QA-Y2-dgj"/>
+                            <constraint firstItem="fHI-9q-g8n" firstAttribute="centerX" secondItem="a0v-aY-s0S" secondAttribute="centerX" id="nUB-9L-TUg"/>
+                        </constraints>
+                        <string key="userLabel">
+Root View</string>
+                    </view>
+                    <navigationItem key="navigationItem" title="연결방식을 선택하세요" id="AJU-gs-ase"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="v81-1V-lg7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-841" y="75"/>
+        </scene>
+        <!--Order Summary-->
+        <scene sceneID="tfB-Iq-jdp">
+            <objects>
+                <viewController id="q99-Gi-Gcx" customClass="CodeDetailViewController" customModule="_2_08_22DailyChallenge" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="HrK-K3-0Ow">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="cd6-iS-Bm6"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Order Summary" id="CPH-OP-4Xx"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zzM-D8-emE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="16" y="75"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

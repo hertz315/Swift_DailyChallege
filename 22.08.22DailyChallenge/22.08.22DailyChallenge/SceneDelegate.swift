@@ -1,6 +1,6 @@
 //
 //  SceneDelegate.swift
-//  22.08.21DailyChallenge_Code
+//  22.08.22DailyChallenge
 //
 //  Created by Hertz on 8/21/22.
 //

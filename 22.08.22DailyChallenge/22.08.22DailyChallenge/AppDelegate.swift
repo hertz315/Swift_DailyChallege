@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  22.08.21DailyChallenge_Code
+//  22.08.22DailyChallenge
 //
 //  Created by Hertz on 8/21/22.
 //
@@ -41,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          application to it. This property is optional since there are legitimate
          error conditions that could cause the creation of the store to fail.
         */
-        let container = NSPersistentContainer(name: "_2_08_21DailyChallenge_Code")
+        let container = NSPersistentContainer(name: "_2_08_22DailyChallenge")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.
