@@ -155,7 +155,7 @@ class ViewController: UIViewController {
         checkoutButton.backgroundColor = .systemGreen
     }
     
-    
+}
     //#if DEBUG
     //
     //import SwiftUI
@@ -178,4 +178,3 @@ class ViewController: UIViewController {
     //}
     //
     //#endif
-}
