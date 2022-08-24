@@ -38,7 +38,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var promotionCodeLabel: UILabel!
     
     @IBOutlet weak var promotionTextFiled: UITextField!
-    @IBOutlet weak var applyLabel: UILabel!
     
     @IBOutlet weak var totalLabel1: UILabel!
     
@@ -58,6 +57,12 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var checkoutButton: UIButton!
     
+    @IBOutlet weak var promoStackView: UIStackView!
+    
+    @IBOutlet weak var inputTextField: UITextField!
+    
+    @IBOutlet weak var aaplyButton: UIButton!
+    
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,6 +74,7 @@ class ViewController: UIViewController {
         setupTotalLabel()
         setupBottomButton()
         setupBottomSheet()
+        setupPromoStackView()
     }
     
     // MARK: - Setting
@@ -137,7 +143,6 @@ class ViewController: UIViewController {
             string: "Entre Promo Code",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray]
         )
-        applyLabel.textColor = .green
     }
     
     // 토탈레이블
@@ -154,6 +159,21 @@ class ViewController: UIViewController {
         checkoutButton.setTitleColor(.white, for: .normal)
         checkoutButton.backgroundColor = .systemGreen
     }
+    
+    func setupPromoStackView() {
+        promoStackView.layer.cornerRadius = 8
+        promoStackView.clipsToBounds = true
+        promoStackView.layer.borderWidth = 1
+        promoStackView.layer.borderColor = UIColor.systemGray3.cgColor
+        
+        inputTextField.layer.borderWidth = 0
+        inputTextField.borderStyle = .none
+        inputTextField.textRect(forBounds: CGRect(x: 17, y: 17, width: 17, height: 17))
+        
+        aaplyButton.titleEdgeInsets = UIEdgeInsets(top: 10,left: 10,bottom: 10,right: 30)
+        
+    }
+    
     
 }
     //#if DEBUG
@@ -178,3 +198,28 @@ class ViewController: UIViewController {
     //}
     //
     //#endif
+
+
+
+
+class TextFieldWithPadding: UITextField {
+    var textPadding = UIEdgeInsets(
+        top: 17,
+        left: 17,
+        bottom: 17,
+        right: 17
+    )
+
+    override func textRect(forBounds bounds: CGRect) -> CGRect {
+        let rect = super.textRect(forBounds: bounds)
+        return rect.inset(by: textPadding)
+    }
+
+    override func editingRect(forBounds bounds: CGRect) -> CGRect {
+        let rect = super.editingRect(forBounds: bounds)
+        return rect.inset(by: textPadding)
+    }
+}
+
+
+
