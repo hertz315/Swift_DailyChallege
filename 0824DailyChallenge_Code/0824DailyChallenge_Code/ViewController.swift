@@ -260,7 +260,6 @@ class ViewController: UIViewController {
             bottomLabel.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -26),
         ])
     }
-    
 }
 
 
