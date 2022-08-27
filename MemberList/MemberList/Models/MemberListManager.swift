@@ -27,6 +27,7 @@ final class MemberListManager {
             Member(name: "베조스", age: 9, phone: "010-2222-2222", address: "서울 노원구 행복로"),
         ]
     }
+    
     // 8-3
     // 전체 멤버 리스트를 반환하는 메서드
     func getMemberList() -> [Member] {
@@ -44,6 +45,7 @@ final class MemberListManager {
     func updateMemberInfo(index: Int, _ member: Member) {
         memberList[index] = member
     }
+    
     // 8-6
     // 특정 멤버를 반환하게 해주는 메소드
     subscript(index: Int) -> Member {
