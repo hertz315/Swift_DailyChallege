@@ -36,8 +36,15 @@ class ProfileDataManager {
             ]
     }
     
+    // 프로필 배열을 리턴하는 함수
     func getProfileData() -> [Profile] {
         return profileDataArray
+    }
+    
+    // 프로필 데이터를 담고 있는 profile 배열에다가 Profile 데이터를 추가해주는 함수
+    func updateProfileData() {
+        let profile = Profile(profileImage: UIImage(named: "그룹"), personName: "모각코", personDescription: "부담없이 하기 좋은 모각코 입니다")
+        profileDataArray.append(profile)
     }
     
 }

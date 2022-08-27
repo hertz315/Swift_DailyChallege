@@ -36,6 +36,18 @@ class ViewController: UIViewController {
         tableView.rowHeight = 120
         
     }
+    
+    // add 버튼을 누르면 함수 실행
+    // add 버튼을 누르면 Profile 배열이 늘어놔야된다
+    @IBAction func addButtonTapped(_ sender: UIBarButtonItem) {
+        // add 버튼을 눌르면 profileDataManager 저장속성에 ProfileDataManager 클래스가 할당되어있으니깐 profileDataManager 저장속성을 통해 ProfileDataManager클래스의 updataProfileData메서드로 접근해서
+        // Profile 데이터를 생성하고 Profile 배열에 추가한다
+        profileDataManager.updateProfileData()
+        
+        // ⭐️ 이제 데이터가 tableView의 데이터가 바뀌었으니깐 테이블 뷰 다시 표시해주는 메서드 ⭐️
+        tableView.reloadData()
+    }
+    
 }
 
 // MARK: - UITableViewDataSource 익스텐션
