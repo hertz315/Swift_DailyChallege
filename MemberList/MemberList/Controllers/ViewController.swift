@@ -47,16 +47,26 @@ final class ViewController: UIViewController {
     // 5
     // tableView의 중요한설정이 담겨있는 메서드
     func setupTableView() {
+        
         // 5-1
         // dataSource를 사용하기 위해서는 반드시 필수적으로 선언해야되는 코드
         // 테이블 뷰에 접근해서 데이터뷰를 셀프로 설정한다
-        // ⭐️tableView.dataSource의 대리자를 ViewController로 설정하겠다는 의미이다⭐️
+        // ⭐️tableView.dataSource의 대리자를 ViewController로 설정하겠다는 의미⭐️
         tableView.dataSource = self
+        
+        // 63
+        // ⭐️ViewController에서 UITableViewDelegate를 사용하기 위한 필수 요소⭐️
+        // tableView.delegate의 대리자를 ViewController로 설정하겠다는 의미
+        tableView.delegate = self
         
         // 5-2
         // 테이블 뷰의 높이 설정
         tableView.rowHeight = 60
         
+        // 28
+        // ⭐️⭐️⭐️코드로 UI를 짤경우 쎌을 등록하는 코드를 반드시 코딩해야 한다⭐️⭐️⭐️
+        // ⭐️첫번째 파라미터에서는 쎌의 클래스의 메타타입을 입력해야한다⭐️
+        tableView.register(MyTableViewCell.self, forCellReuseIdentifier: "MemberCell")
     }
     
     // 13
@@ -101,6 +111,7 @@ final class ViewController: UIViewController {
 
 }
 
+// MARK: - UITableViewDataSource Delegate
 // 4
 // 테이블 뷰를 사용하기 위해서는 반드시 UITableViewDataSource프로토콜을 사용해야한다
 // ViewController를 익스텐션 하여 UITableViewDataSource프로토콜 정의하기
@@ -113,8 +124,54 @@ extension ViewController: UITableViewDataSource {
 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        
+        // 27
+        // 테이블 뷰의 register 메소드에서 등록해 놓은 쎌의 Identifier를 통해 쎌을 꺼내가지고 사용해야 한다
+        // 첫뻔째 파라미터를 활용해서 쎌의 Identifier을 설정한다 두번째 파라미터에는 cellForRowAt의 파라미터를 넣어준다
+        // dequeueReusableCell 메소드의 타입은 UITableViewCell 터입이기때문에 타입캐스팅을 통해서 구체적은 타입으로 변형해준다음 tableView 메서드의 지역변수인 cell에 할당해준다
+        // cell를 눌렀을때 테이블뷰의 dequeueReusableCell메서드를 통해 눌린 해당 쎌이 tableView의 지역변수 cell에 전달된다
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MemberCell", for: indexPath) as! MyTableViewCell
+        
+        // 27-1⭐️⭐️⭐️
+        // cell 은 MytableViewCell 내가 만든 커스텀 쎌 타입이다 그러므로 cell에서 MytableViewCell에 있는 속성감시자 member에 접근할수 있다.
+        // 눌린 쎌의 의 데이터를 memgerListManager.getMemberList()[indexPath.row]를 통해 가져오고 cell 즉 MyTableViewCell의 member에 전달한다
+        cell.member = memberListManager.getMemberList()[indexPath.row]
+        
+        // 27-2
+        // 쎌을 눌렀을때 스타일
+        cell.selectionStyle = .none
+        
+        return cell
     }
     
     
 }
+
+// MARK: - UITableViewDelegate
+// 61
+// 쎌을 눌렀을때 다음 화면으로 넘어가기위해서는 UITableViewDelegate 프로토콜을 채택해야한다
+extension ViewController: UITableViewDelegate {
+
+    // 62
+    // 필수가 아닌 선택적인 메서드
+    // 테이블 뷰 에서 셀이 선택되었을때
+    // 쎌이 눌렀을때 메서드를 통해서 동작이 전달 된다
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        // 64
+        // 코드를 통해서 다음화면으로 넘어가는 코드 구현
+        let detailVC = DetailViewController()
+        
+        // 67
+        // 멤버를 전달
+        // memberListManager.getMemberList()를 통해 Member 배열을 얻어온후 [indexPath.row]를 통해 Member배열에 접근해가지고 몇변째 녀석인지 접근을 해서 DetailViewController 에 전달한다
+        detailVC.member = memberListManager.getMemberList()[indexPath.row]
+        
+        
+        // 65
+        // 네비게이션 컨트롤러를 사용해서 다음화면으로 넘어갈것이다
+        navigationController?.pushViewController(detailVC, animated: true)
+        
+    }
+}
+

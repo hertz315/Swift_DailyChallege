@@ -9,6 +9,20 @@ import UIKit
 
 class MyTableViewCell: UITableViewCell {
     
+    // 27⭐️⭐️⭐️
+    // 속성 감시자 member를 선언한후 타입을 Member모델로 설정했다
+    // 멤버라는 저장속성을 항상 감시를하는 속성감시자 이기때문에 멤버라는 변수가 만약에 변했다면 didSet안에 블록을 실행한다
+    // 예를들어 테이블쎌의 member가 변한다면 쎌의 minImageView의 이미지를 바뀐 Member모델의 mainImage로 할당한다
+    var member: Member? {
+        didSet {
+            guard var member = member else { return }
+            mainImageView.image = member.memberImage
+            memberNameLabel.text = member.name
+            addressLabel.text = member.address
+        }
+    }
+    
+    
     //MARK: - UI구현
     
     // 16
@@ -85,6 +99,8 @@ class MyTableViewCell: UITableViewCell {
     }
     
     // 26
+    // ⭐️⭐️⭐️실제로 이미지의 넓이가 정확하게 결정되는 순간이 layoutSubviews 이후이기때문에
+    // 넓이를 반으로 나눠준다음에 코너 레디어스 에 할당하여 메인이미지의 모양을 써클 이미지의 모양으로 만들어준다
     override func layoutSubviews() {
         super.layoutSubviews()
         self.mainImageView.clipsToBounds = true

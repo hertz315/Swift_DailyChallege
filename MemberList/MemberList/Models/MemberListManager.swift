@@ -47,12 +47,15 @@ final class MemberListManager {
     }
     
     // 8-6
-    // 특정 멤버를 반환하게 해주는 메소드
+    // indexPath를 사용하여 특정 멤버를 반환하게 해주는 메소드
+    // ⭐️⭐️⭐️get Only로 구현하면 tableView의 쎌에 데이터를 넘겨줄때 값(데이터)을 넘겨줄수가 없다 그래서 set도 구현해야한다⭐️⭐️⭐️
     subscript(index: Int) -> Member {
         get {
             return memberList[index]
         }
-        
+        set {
+            memberList[index] = newValue
+        }
     }
     
     

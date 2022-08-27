@@ -31,8 +31,8 @@ struct Member {
     static var memberNumbers: Int = 0
     
     // 7-2
-    let MemberId: Int
-    let name: String?
+    let memberId: Int
+    var name: String?
     var age: Int?
     var phone: String?
     var address: String?
@@ -48,7 +48,7 @@ struct Member {
         
         // 7-5
         // 멤버의 숫자가 0이라면 0을 셋팅, 아니라면 타입저장 속성의 절대적 값으로 셋팅
-        self.MemberId = Member.memberNumbers == 0 ? 0 : Member.memberNumbers
+        self.memberId = Member.memberNumbers == 0 ? 0 : Member.memberNumbers
         
         // 7-6
         // 멤버를 생성한다면, 항상 멤버의 숫자가 + 1 증가되게 끔 설정
