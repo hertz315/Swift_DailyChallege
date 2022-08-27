@@ -13,7 +13,13 @@ final class ViewController: UIViewController {
     // ⭐️멤버 데이터 비즈니스로직을 담당하고 있는 MemberListManager한테 ViewController 에서 접근하게 할수 있게끔 저장속성을 선언한후 저장속성을 MemberListManager 객체로 만들기⭐️
     var memberListManager = MemberListManager()
     
-
+    // 74
+    // 네비게이션 바에 넣기 위한 버튼
+    lazy var plusButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(plusButtonTapped))
+        return button
+    }()
+    
     // 1
     // 테이블 뷰 생성 하기
     private let tableView = UITableView()
@@ -42,6 +48,15 @@ final class ViewController: UIViewController {
         setupTableView()
         
         
+    }
+    
+    // ⭐️⭐️⭐️73⭐️⭐️⭐️
+    // viewWillAppear는 어떤 화면으로 갔다가 다시 돌아올때 화면이 나타날때 마다 언제든지 재호출이 되는 메서드이다
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // 72번에서 ViewController에서 업데이트 안되어있던 것이 이제 업데이트 된다
+        // 아래 코드는 테이블 뷰를 다시 그리는 메소드
+        tableView.reloadData()
     }
     
     // 5
@@ -90,6 +105,10 @@ final class ViewController: UIViewController {
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.compactAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        
+        // 76
+        // 네비게이션 오른쪽 상단 버튼 설정
+        self.navigationItem.rightBarButtonItem = self.plusButton
     }
     
     // 2
@@ -106,6 +125,22 @@ final class ViewController: UIViewController {
             tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0),
             tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: 0),
         ])
+    }
+    
+    // 75
+    // 멤버를 추가하기 위한 다음 화면으로 이동
+    @objc func plusButtonTapped() {
+        // 다음화면으로 이동 (멤버는 전달하지 않음)
+        let detailVC = DetailViewController()
+        
+        // 다음 화면의 대리자 설정 (다음 화면의 대리자는 지금 현재의 뷰컨트롤러)
+        //detailVC.delegate = self
+        
+        // push방식으로 화면이동
+        navigationController?.pushViewController(detailVC, animated: true)
+        //show(detailVC, sender: nil)
+        
+        // 멤버를 추가하기 위함이기때문에 멤버를 전달하지 않아도 된다
     }
 
 

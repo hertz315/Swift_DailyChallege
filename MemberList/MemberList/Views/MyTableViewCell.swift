@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MyTableViewCell: UITableViewCell {
+final class MyTableViewCell: UITableViewCell {
     
     // 27⭐️⭐️⭐️
     // 속성 감시자 member를 선언한후 타입을 Member모델로 설정했다

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DetailView: UIView {
+final class DetailView: UIView {
     
     // 68
     //MARK: - 멤버 저장속성 구현
