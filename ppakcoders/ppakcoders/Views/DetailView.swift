@@ -1,16 +1,17 @@
 //
-//  DetialView.swift
-//  MemberList
+//  DetailView.swift
+//  ppakcoders
 //
-//  Created by Hertz on 8/27/22.
+//  Created by Hertz on 8/28/22.
 //
 
 import UIKit
 
-final class DetailView: UIView {
-    
-    // 68
+// DetailView를 만드는 이유는 MVC패턴으로 만들기때문이다
+class DetailView: UIView {
+
     //MARK: - 멤버 저장속성 구현
+    // 68
     // 멤버 데이터가 바뀌면 ===> didSet(속성감시자) 실행
     // 속성감시자도 (저장 속성을 관찰하는) 어쨌든 자체는 메서드임
     var member: Member? {
@@ -27,55 +28,43 @@ final class DetailView: UIView {
             // 멤버 저장속성이 변하면 멤버의 프로필,이름,폰넘버,주소 를 뽑아서 뷰의 화면에 표시
             mainImageView.image = member.memberImage
             memberIdTextField.text = "\(member.memberId)"
-            nameTextField.text = member.name
-            phoneNumberTextField.text = member.phone
-            addressTextField.text = member.address
+            nickNameTextField.text = member.nickName
+            membershipTextField.text = member.membership
+            figmaTextField.text = member.figmaAdress
             
-//            // 나이항목 (옵셔널 정수형)
-//            guard let age = member.age else {
-//                // 나이 항목이 없으면 빈문자열로 표시
-//                ageTextField.text = ""
-//                return
-//            }
-//            // 나이 항목이 있으면 정수 ==> 문자열 변환 표기
-//            ageTextField.text = "\(age)"
             
             // 나이항목의 구현
             // 나이항목이 있다면 나이를 문자열로 변환해가지고 ageTextField 에 표시 없으면 빈문자열 표시
-            ageTextField.text = member.age != nil ? "\(member.age!)" : ""
+            consultCountTextField.text = member.consultCount != nil ? "\(member.consultCount!)" : ""
         }
     }
-
-    
-
     //MARK: - UI구현
-    // 28
+    // 29
     let mainImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .lightGray
+        imageView.backgroundColor = .systemGray5
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 75
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    // 29
+    // 30
     // 정렬을 깔끔하게 하기 위한 컨테이너뷰
     lazy var imageContainView: UIView = {
         let view = UIView()
         view.addSubview(mainImageView)
-        //view.backgroundColor = .yellow
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    // 30
+    // 31
     let memberIdLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.font = UIFont.boldSystemFont(ofSize: 12)
         label.text = "멤버번호:"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    // 31
+    // 32
     let memberIdTextField: UITextField = {
         let tf = UITextField()
         tf.frame.size.height = 22
@@ -88,7 +77,7 @@ final class DetailView: UIView {
         tf.translatesAutoresizingMaskIntoConstraints = false
         return tf
     }()
-    // 32
+    // 33
     lazy var memberIdStackView: UIStackView = {
         let stview = UIStackView(arrangedSubviews: [memberIdLabel, memberIdTextField])
         stview.spacing = 5
@@ -98,106 +87,77 @@ final class DetailView: UIView {
         stview.translatesAutoresizingMaskIntoConstraints = false
         return stview
     }()
-    // 33
-    let nameLabel: UILabel = {
+    // 34
+    let nickNameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 16)
-        label.text = "이       름:"
+        label.font = UIFont.boldSystemFont(ofSize: 12)
+        label.text = "닉 네 임:"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
-    }()
-    // 34
-    let nameTextField: UITextField = {
-        let tf = UITextField()
-        tf.frame.size.height = 22
-        tf.borderStyle = .roundedRect
-        tf.autocapitalizationType = .none
-        tf.autocorrectionType = .no
-        tf.spellCheckingType = .no
-        tf.clearsOnBeginEditing = false
-        tf.translatesAutoresizingMaskIntoConstraints = false
-        return tf
     }()
     // 35
-    lazy var nameStackView: UIStackView = {
-        let stview = UIStackView(arrangedSubviews: [nameLabel, nameTextField])
-        stview.spacing = 5
-        stview.axis = .horizontal
-        stview.distribution = .fill
-        stview.alignment = .fill
-        stview.translatesAutoresizingMaskIntoConstraints = false
-        return stview
+    let nickNameTextField: UITextField = {
+        let tf = UITextField()
+        tf.frame.size.height = 22
+        tf.borderStyle = .roundedRect
+        tf.autocapitalizationType = .none
+        tf.autocorrectionType = .no
+        tf.spellCheckingType = .no
+        tf.clearsOnBeginEditing = false
+        tf.translatesAutoresizingMaskIntoConstraints = false
+        return tf
     }()
     // 36
-    let ageLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 16)
-        label.text = "나       이:"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+    lazy var nickNameStackView: UIStackView = {
+        let stview = UIStackView(arrangedSubviews: [nickNameLabel, nickNameTextField])
+        stview.spacing = 5
+        stview.axis = .horizontal
+        stview.distribution = .fill
+        stview.alignment = .fill
+        stview.translatesAutoresizingMaskIntoConstraints = false
+        return stview
     }()
     // 37
-    let ageTextField: UITextField = {
-        let tf = UITextField()
-        tf.frame.size.height = 22
-        tf.borderStyle = .roundedRect
-        tf.autocapitalizationType = .none
-        tf.autocorrectionType = .no
-        tf.spellCheckingType = .no
-        tf.clearsOnBeginEditing = false
-        tf.translatesAutoresizingMaskIntoConstraints = false
-        return tf
+    let membershipLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 12)
+        label.text = "멤버쉽 등급:"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     // 38
-    lazy var ageStackView: UIStackView = {
-        let stview = UIStackView(arrangedSubviews: [ageLabel, ageTextField])
-        stview.spacing = 5
-        stview.axis = .horizontal
-        stview.distribution = .fill
-        stview.alignment = .fill
-        stview.translatesAutoresizingMaskIntoConstraints = false
-        return stview
+    let membershipTextField: UITextField = {
+        let tf = UITextField()
+        tf.frame.size.height = 22
+        tf.borderStyle = .roundedRect
+        tf.autocapitalizationType = .none
+        tf.autocorrectionType = .no
+        tf.spellCheckingType = .no
+        tf.clearsOnBeginEditing = false
+        tf.translatesAutoresizingMaskIntoConstraints = false
+        return tf
     }()
     // 39
-    let phoneNumberLabel: UILabel = {
+    lazy var membershipStackView: UIStackView = {
+        let stview = UIStackView(arrangedSubviews: [membershipLabel, membershipTextField])
+        stview.spacing = 5
+        stview.axis = .horizontal
+        stview.distribution = .fill
+        stview.alignment = .fill
+        stview.translatesAutoresizingMaskIntoConstraints = false
+        return stview
+    }()
+    
+    // 40
+    let consultCountLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 16)
-        label.text = "전화번호:"
+        label.font = UIFont.boldSystemFont(ofSize: 12)
+        label.text = "컨설팅 횟수:"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
-    }()
-    // 40
-    let phoneNumberTextField: UITextField = {
-        let tf = UITextField()
-        tf.frame.size.height = 22
-        tf.borderStyle = .roundedRect
-        tf.autocapitalizationType = .none
-        tf.autocorrectionType = .no
-        tf.spellCheckingType = .no
-        tf.clearsOnBeginEditing = false
-        tf.translatesAutoresizingMaskIntoConstraints = false
-        return tf
     }()
     // 41
-    lazy var phoneNumberStackView: UIStackView = {
-        let stview = UIStackView(arrangedSubviews: [phoneNumberLabel, phoneNumberTextField])
-        stview.spacing = 5
-        stview.axis = .horizontal
-        stview.distribution = .fill
-        stview.alignment = .fill
-        stview.translatesAutoresizingMaskIntoConstraints = false
-        return stview
-    }()
-    // 42
-    let addressLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 16)
-        label.text = "주       소:"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    // 43
-    let addressTextField: UITextField = {
+    let consultCountTextField: UITextField = {
         let tf = UITextField()
         tf.frame.size.height = 22
         tf.borderStyle = .roundedRect
@@ -208,9 +168,9 @@ final class DetailView: UIView {
         tf.translatesAutoresizingMaskIntoConstraints = false
         return tf
     }()
-    // 44
-    lazy var addressStackView: UIStackView = {
-        let stview = UIStackView(arrangedSubviews: [addressLabel, addressTextField])
+    // 42
+    lazy var consultStackView: UIStackView = {
+        let stview = UIStackView(arrangedSubviews: [consultCountLabel, consultCountTextField])
         stview.spacing = 5
         stview.axis = .horizontal
         stview.distribution = .fill
@@ -218,19 +178,49 @@ final class DetailView: UIView {
         stview.translatesAutoresizingMaskIntoConstraints = false
         return stview
     }()
+    // 43
+    let figmaLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 12)
+        label.text = "피그마 이메일:"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    // 44
+    let figmaTextField: UITextField = {
+        let tf = UITextField()
+        tf.frame.size.height = 22
+        tf.borderStyle = .roundedRect
+        tf.autocapitalizationType = .none
+        tf.autocorrectionType = .no
+        tf.spellCheckingType = .no
+        tf.clearsOnBeginEditing = false
+        tf.translatesAutoresizingMaskIntoConstraints = false
+        return tf
+    }()
     // 45
+    lazy var figmaAddressStackView: UIStackView = {
+        let stview = UIStackView(arrangedSubviews: [figmaLabel, figmaTextField])
+        stview.spacing = 5
+        stview.axis = .horizontal
+        stview.distribution = .fill
+        stview.alignment = .fill
+        stview.translatesAutoresizingMaskIntoConstraints = false
+        return stview
+    }()
+    // 46
     let saveButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.backgroundColor = .systemBlue
+        button.backgroundColor = .gray
         button.setTitle("UPDATE", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.frame.size.height = 40
+        button.frame.size.height = 50
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-    //46
+    //47
     lazy var stackView: UIStackView = {
-        let stview = UIStackView(arrangedSubviews: [imageContainView, memberIdStackView, nameStackView, ageStackView, phoneNumberStackView, addressStackView, saveButton])
+        let stview = UIStackView(arrangedSubviews: [imageContainView, memberIdStackView, nickNameStackView, membershipStackView, consultStackView, figmaAddressStackView, saveButton])
         stview.spacing = 10
         stview.axis = .vertical
         stview.distribution = .fill
@@ -251,13 +241,13 @@ final class DetailView: UIView {
     var stackViewTopConstraint: NSLayoutConstraint!
     
     // MARK: - 생성자
-    // 47
+    // 48
     // 뷰를 만드는 생성자는 프레임을 가지고 만들수 있다
     // DetailView 객체가 생성이 될때
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        // 54
+        // 55
         // 스택뷰를 셋업 해주는 코드
         setupStackView()
         
@@ -275,12 +265,16 @@ final class DetailView: UIView {
         
     }
     
-    // 48
+    // 49
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // 49
+    func setupMemberIdTextField() {
+        memberIdTextField.delegate = self
+    }
+    
+    // 54
     // 전체를 감싸는 스택뷰를 addSubview하는 코드
     func setupStackView() {
         self.addSubview(stackView)
@@ -304,10 +298,6 @@ final class DetailView: UIView {
         NotificationCenter.default.addObserver(self, selector: #selector(moveDownAction), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    // 84
-    func setupMemberIdTextField() {
-        memberIdTextField.delegate = self
-    }
     
     //MARK: - 오토레이아웃 셋팅
     // 53
@@ -335,10 +325,10 @@ final class DetailView: UIView {
         
         NSLayoutConstraint.activate([
             memberIdLabel.widthAnchor.constraint(equalToConstant: labelWidth),
-            nameLabel.widthAnchor.constraint(equalToConstant: labelWidth),
-            ageLabel.widthAnchor.constraint(equalToConstant: labelWidth),
-            phoneNumberLabel.widthAnchor.constraint(equalToConstant: labelWidth),
-            addressLabel.widthAnchor.constraint(equalToConstant: labelWidth)
+            nickNameLabel.widthAnchor.constraint(equalToConstant: labelWidth),
+            membershipLabel.widthAnchor.constraint(equalToConstant: labelWidth),
+            consultCountLabel.widthAnchor.constraint(equalToConstant: labelWidth),
+            figmaLabel.widthAnchor.constraint(equalToConstant: labelWidth)
         ])
         
         // 키보드가 올라올때 스택뷰의 위치를 위로 올리기 위해서
@@ -410,5 +400,3 @@ extension DetailView: UITextFieldDelegate {
         return true
     }
 }
-
-

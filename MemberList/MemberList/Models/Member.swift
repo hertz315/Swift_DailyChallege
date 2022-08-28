@@ -39,10 +39,10 @@ struct Member {
     lazy var memberImage: UIImage? = {
         // 저장속성 name이 없다면, 시스템 사람이미지 셋팅
         guard let name = name else {
-            return UIImage(systemName: "person")
+            return UIImage(systemName: "Person")
         }
         // 해당 이름으로한 이미지가 없다면, 시스템 사람이미지 셋팅
-        return UIImage(named: "\(name).png") ?? UIImage(systemName: "person")
+        return UIImage(named: "\(name).png") ?? UIImage(systemName: "Person")
     }()
     
     // 7-1
