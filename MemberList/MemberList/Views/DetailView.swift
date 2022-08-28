@@ -253,6 +253,7 @@ final class DetailView: UIView {
     // MARK: - 생성자
     // 47
     // 뷰를 만드는 생성자는 프레임을 가지고 만들수 있다
+    // DetailView 객체가 생성이 될때
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -263,6 +264,14 @@ final class DetailView: UIView {
         // 66
         // 뷰의 백그라운드를 흰색으로 설정
         self.backgroundColor = .white
+        
+        // 85
+        // 생성자에서 호출을 통해 메모리에 올리면서 초기화
+        setupMemberIdTextField()
+        
+        // 88
+        // DetailView객체가 생성이 될때 운영체제에서 Notification을 받을수 있는 그런것을 셋팅을 해주는 코드
+        setupNotification()
         
     }
     
@@ -277,7 +286,28 @@ final class DetailView: UIView {
         self.addSubview(stackView)
     }
     
+    //⭐️⭐️⭐️⭐️⭐️87⭐️⭐️⭐️⭐️⭐️
+    // 노트피케이션함수를 셋팅하는 메서드를 생성
+    func setupNotification() {
+        // 89
+        // 노티피케이션을 통해 키보드가 올라오는것을 전달받으면 메서드의 파라미터 들을 실행
+        // 싱클톤 패턴이다 == 앱을 실행하면 하나만 존재하는 객체
+        // 첫번째 파라미터는 관찰을 할 객체를 설정해준다
+        // 두번째 파라미터에서는 이벤트를 처리할수 있는 셀렉터를 넣어준다
+        // 세번재 파라미터에서는 키보드가 올라올때 뭔가 알림을 주겠다는 의미
+        // 네번째 파라미터는 키보드가 올라올때 키보드가 올라올때 추가적인 정보를 전달한다
+        // ⭐️⭐️⭐️⭐️⭐️
+        // 애플이 미리 만들어 놓은 키보드가 올라온다는 알림을 발송하는 객체가 있는대(UIResponder.keyboardWillShowNotification) 이런 알림을 받을려면 NotificationCenter.addObserver 라는 addObserver(관찰자를 추가)하면 알림을 발송할때 알림을 받을수 있다
+        // 알림을 받으면 셀렉터에 있는 함수를 실행한다
+        // ⭐️⭐️⭐️⭐️⭐️
+        NotificationCenter.default.addObserver(self, selector: #selector(moveUpAction), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(moveDownAction), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
     
+    // 84
+    func setupMemberIdTextField() {
+        memberIdTextField.delegate = self
+    }
     
     //MARK: - 오토레이아웃 셋팅
     // 53
@@ -323,8 +353,62 @@ final class DetailView: UIView {
         ])
     }
     
+    // 86
+    // 키보드가 올라오는 순간에 실행을 시켜야 한다
+    //MARK: - 키보드가 나타날때와 내려갈때의 애니메이션 셋팅
+    // 뷰가 전체적으로 올라가는 함수
+    @objc func moveUpAction() {
+        // 모든 요소를 담은 스택뷰를 올라가도록 만듬
+        stackViewTopConstraint.constant = -20
+        UIView.animate(withDuration: 0.2) {
+            self.layoutIfNeeded()
+        }
+    }
     
+    // 뷰가 전체적으로 내려가는 함수
+    @objc func moveDownAction() {
+        // 모든 요소를 담은 스택뷰를 내려가도록 만듬
+        stackViewTopConstraint.constant = 10
+        UIView.animate(withDuration: 0.2) {
+            self.layoutIfNeeded()
+        }
+    }
     
+    // 91
+    // 화면을 터치하면 키보드가 내려가는 메서드
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.endEditing(true)
+    }
     
-
+    // 90
+    //MARK: - 소멸자 구현
+    // 해제 안하면 힙 메모리 영역에서 사라지지 않을수 있다
+    deinit {
+        // ⭐️⭐️노티피케이션의 등록 해제 (해제안하면 계속 등록될 수 있음)⭐️⭐️
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
 }
+
+// 83
+//MARK: - 텍스트필드 델리게이트 구현
+// 텍스트 필드 델리게이트를 채택
+extension DetailView: UITextFieldDelegate {
+    // 텍스트 필드의 내용이 눌릴때마다 호출 하는 메서드 == shouldChangeCharacterIn
+    // 텍스트 필드가 입력이 될때마다 호출
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        // ⭐️⭐️⭐️멤버 아이디는 수정 못하도록 설정 (멤버아이디의 텍스트필드는 입력 안되도록 설정)
+        // 지금 현재 입력되고 있는 텍스트필드가 멤버 아이디와 관련된 텍스트 필드라면 리턴을 통해 메서드를 빠져나감
+        // false라고 리턴을 해주면 수정이 안됨
+        if textField == memberIdTextField {
+            return false
+        }
+        
+        // 나머지 텍스트필드는 관계없이 설정 가능
+        return true
+    }
+}
+
+

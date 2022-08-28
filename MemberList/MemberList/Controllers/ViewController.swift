@@ -197,6 +197,12 @@ extension ViewController: UITableViewDelegate {
         // 코드를 통해서 다음화면으로 넘어가는 코드 구현
         let detailVC = DetailViewController()
         
+        // 72-4
+        // DetailViewController에 접근할수 있는 게 이부분이다
+        // ⭐️⭐️⭐️필수 요소⭐️⭐️⭐️
+        // DetailViewController의 대리자를 self == ViewController가 되겠다고 선언
+//        detailVC.delegate = self
+        
         // 67
         // 멤버를 전달
         // memberListManager.getMemberList()를 통해 Member 배열을 얻어온후 [indexPath.row]를 통해 Member배열에 접근해가지고 몇변째 녀석인지 접근을 해서 DetailViewController 에 전달한다
@@ -210,3 +216,24 @@ extension ViewController: UITableViewDelegate {
     }
 }
 
+// 72-2
+// MARK: - 커스텀 MemberDelegate
+// MemberDelegate프로토콜을 채택한 ViewController는 DetailViewController의 대리자 역할을 할수 있다
+extension ViewController: MemberDelegate {
+    // MemberDelegate 을 채택하면 반드시 정의해야 되는 메서드가 2개 있다
+    func addNewMember(_ member: Member) {
+        // 비즈니스 로직을 관리하는 데이터메니저 한테 새로운 멤버가 생겼다는 것을 알려줘야 한다
+        memberListManager.makeNewMember(member)
+        // 멤버가 업데이트 되었으니깐 멤버가 업데이트 된 경우 테이블 뷰를 다시 refresh시켜줘야 한다
+        tableView.reloadData()
+    }
+    
+    func update(index: Int, _ member: Member) {
+        // 비즈니스 로직을 관리하는 데이터매니저 한테 멤버가 없데이트 되었다는 것을 알려줘야 한다
+        memberListManager.updateMemberInfo(index: index, member)
+        // 멤버가 업데이트 되었으니깐 멤버가 업데이트 된 경우 반드시 테이블 뷰를 다시 refresh시켜줘야 한다
+        tableView.reloadData()
+    }
+    
+    
+}
